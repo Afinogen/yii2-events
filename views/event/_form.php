@@ -29,7 +29,7 @@ $model->types = $model->types0;
     <div>Для выбранного события:</div>
     <div class="js-template-variables"></div>
 
-    <?= $form->field($model, 'types')->listBox(ArrayHelper::map(\app\models\EventType::find()->all(), 'id', 'name'), ['multiple' => 'true']) ?>
+    <?= $form->field($model, 'types')->listBox(ArrayHelper::map(\app\models\EventType::find()->all(), 'id', 'description'), ['multiple' => 'true']) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

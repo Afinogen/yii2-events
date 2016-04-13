@@ -20,14 +20,12 @@ class m160411_141619_site_event extends Migration
             'event_code', [
                 'name' => 'new_user',
                 'title' => 'Создание нового пользователя',
-                'description' => 'Доступные переменные:<br>{username}<br>{site}'
             ]
         );
         $this->insert(
             'event_code', [
                 'name' => 'new_article',
                 'title' => 'Добавление новой статьи',
-                'description' => 'Доступные переменные: <br>{username}<br>{sitename}<br>{articleName}<br>{shortText}'
             ]
         );
 
@@ -39,7 +37,6 @@ class m160411_141619_site_event extends Migration
                 'description' => Schema::TYPE_TEXT
             ]
         );
-//        $this->addPrimaryKey('pk_event_type_id', 'event_type', 'id');
 
         $this->insert(
             'event_type', [
