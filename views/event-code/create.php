@@ -7,6 +7,7 @@ use yii\helpers\Html;
 /* @var $model app\models\EventCode */
 
 $this->title = 'Create Event Code';
+$this->params['breadcrumbs'][] = ['label' => 'Admin', 'url' => ['admin/index']];
 $this->params['breadcrumbs'][] = ['label' => 'Event Codes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

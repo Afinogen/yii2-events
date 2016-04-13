@@ -8,14 +8,15 @@ use yii\widgets\ActiveForm;
 /* @var $model app\models\Event */
 /* @var $form yii\widgets\ActiveForm */
 
-$to = array_merge([-1 => 'Текущий пользователь'], ArrayHelper::map(\app\models\User::find()->all(), 'id', 'username')) ;
+$to = array_merge([-1 => 'Текущий пользователь'], ArrayHelper::map(\app\models\User::find()->all(), 'id', 'username'));
+$model->types = $model->types0;
 ?>
 
 <div class="event-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'code')->dropDownList(ArrayHelper::map(\app\models\EventCode::find()->all(), 'name', 'title')) ?>
+    <?= $form->field($model, 'code')->dropDownList(ArrayHelper::map(\app\models\EventCode::find()->all(), 'name', 'title'), ['class' => 'form-control js-change-code']) ?>
 
     <?= $form->field($model, 'from_user_id')->dropDownList(ArrayHelper::map(\app\models\User::find()->all(), 'id', 'username')) ?>
 
@@ -24,6 +25,9 @@ $to = array_merge([-1 => 'Текущий пользователь'], ArrayHelper
     <?= $form->field($model, 'subject')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'body')->textarea(['rows' => 6]) ?>
+    <div>Глобальные параметры: <?= implode(', ', array_keys(\app\components\BasicEvent::getTemplateVariables())) ?></div>
+    <div>Для выбранного события:</div>
+    <div class="js-template-variables"></div>
 
     <?= $form->field($model, 'types')->listBox(ArrayHelper::map(\app\models\EventType::find()->all(), 'id', 'name'), ['multiple' => 'true']) ?>
 

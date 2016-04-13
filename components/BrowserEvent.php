@@ -11,12 +11,11 @@ namespace app\components;
 
 /**
  * Class BrowserEvent
+ * События для браузера
  *
  * @package app\components
  */
 class BrowserEvent extends BasicEvent
 {
     const EVENT_TYPE_BROWSER = 'browser';
-
-
 }

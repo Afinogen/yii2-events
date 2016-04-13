@@ -9,6 +9,10 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 
+/**
+ * Class SiteController
+ * @package app\controllers
+ */
 class SiteController extends Controller
 {
     public function behaviors()
@@ -34,6 +38,9 @@ class SiteController extends Controller
         ];
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [
@@ -47,11 +54,19 @@ class SiteController extends Controller
         ];
     }
 
+    /**
+     * Главная страница сайта
+     * @return string
+     */
     public function actionIndex()
     {
         return $this->render('index');
     }
 
+    /**
+     * Авторизация
+     * @return string|\yii\web\Response
+     */
     public function actionLogin()
     {
         if (!\Yii::$app->user->isGuest) {
@@ -67,6 +82,9 @@ class SiteController extends Controller
         ]);
     }
 
+    /**
+     * @return \yii\web\Response
+     */
     public function actionLogout()
     {
         Yii::$app->user->logout();
@@ -74,6 +92,9 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
+    /**
+     * @return string|\yii\web\Response
+     */
     public function actionContact()
     {
         $model = new ContactForm();
@@ -87,6 +108,9 @@ class SiteController extends Controller
         ]);
     }
 
+    /**
+     * @return string
+     */
     public function actionAbout()
     {
         return $this->render('about');

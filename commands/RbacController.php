@@ -12,9 +12,15 @@ use app\models\UserGroupRule;
 use yii\console\Controller;
 use yii\helpers\Console;
 
-
+/**
+ * Class RbacController
+ * @package app\commands
+ */
 class RbacController extends Controller
 {
+    /**
+     * Создание ролей
+     */
     public function actionInit()
     {
         Console::output('Add roles');

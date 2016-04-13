@@ -19,6 +19,7 @@ use app\models\EventHasType;
 class HandlerEvents extends \yii\base\Event
 {
     /**
+     * Создание нового события на основе кода (browser, email и т.д.)
      * @param \yii\base\Event $event
      */
     public static function newEvent($event)
@@ -31,9 +32,9 @@ class HandlerEvents extends \yii\base\Event
             /** @var EventHasType $msgType */
             foreach ($msgTypes as $msgType) {
                 if ($msgType->type->name == EmailEvent::EVENT_TYPE_EMAIL) {
-                    EmailEvent::generateEvents($eventDb, $event->sender);
+                    EmailEvent::generateEvents($eventDb, $event->sender, $msgType->type);
                 } elseif ($msgType->type->name == BrowserEvent::EVENT_TYPE_BROWSER) {
-                    BrowserEvent::generateEvents($eventDb, $event->sender);
+                    BrowserEvent::generateEvents($eventDb, $event->sender, $msgType->type);
                 }
             }
         }

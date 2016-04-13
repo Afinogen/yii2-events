@@ -20,7 +20,7 @@ use yii\behaviors\TimestampBehavior;
  * @property EventCode $code0
  * @property User $fromUser
  * @property EventHasType[] $eventHasTypes
- * @property EventType[] $types
+ * @property EventType[] $types0
  * @property UserEvent[] $userEvents
  */
 class Event extends \yii\db\ActiveRecord
@@ -104,7 +104,7 @@ class Event extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTypes()
+    public function getTypes0()
     {
         return $this->hasMany(EventType::className(), ['id' => 'type_id'])->viaTable('event_has_type', ['event_id' => 'id']);
     }

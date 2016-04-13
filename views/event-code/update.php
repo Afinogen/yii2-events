@@ -6,6 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\EventCode */
 
 $this->title = 'Update Event Code: ' . $model->name;
+$this->params['breadcrumbs'][] = ['label' => 'Admin', 'url' => ['admin/index']];
 $this->params['breadcrumbs'][] = ['label' => 'Event Codes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->name]];
 $this->params['breadcrumbs'][] = 'Update';

@@ -2,10 +2,14 @@
 
 namespace app\controllers;
 
+
+use app\models\Article;
+use app\models\User;
 use Yii;
 use app\models\EventCode;
 use app\models\EventCodeSearch;
 use yii\filters\AccessControl;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -114,6 +118,21 @@ class EventCodeController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    /**
+     * Возращает доступный набор переменных для выбранного события
+     * @param string $code
+     * @return string
+     */
+    public function actionGetVariables($code)
+    {
+        if ($code == Article::EVENT_NEW_ARTICLE) {
+            return Json::encode(array_keys((new Article())->getTemplateVariables()));
+        } elseif ($code == User::EVENT_NEW_USER) {
+            return Json::encode(array_keys((new User())->getTemplateVariables()));
+        }
+        return Json::encode([]);
     }
 
     /**

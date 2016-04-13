@@ -12,6 +12,10 @@ namespace app\controllers;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 
+/**
+ * Class AdminController
+ * @package app\controllers
+ */
 class AdminController extends Controller
 {
     public function behaviors()
@@ -29,6 +33,10 @@ class AdminController extends Controller
         ];
     }
 
+    /**
+     * Главная страничка админки
+     * @return string
+     */
     public function actionIndex()
     {
         return $this->render('index');

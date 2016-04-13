@@ -2,11 +2,9 @@
 
 namespace app\controllers;
 
-use app\components\SiteEvents;
 use Yii;
 use app\models\Article;
 use app\models\ArticleSearch;
-use yii\base\Event;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -53,7 +51,6 @@ class ArticleController extends Controller
      */
     public function actionView($id)
     {
-        $this->findModel($id)->getTemplateVarables();
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);

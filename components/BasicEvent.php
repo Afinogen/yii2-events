@@ -9,6 +9,7 @@
 namespace app\components;
 
 
+use app\models\EventType;
 use yii\base\Component;
 use app\models\Event;
 use app\models\User;
@@ -26,10 +27,11 @@ class BasicEvent extends Component
      *
      * @param Event $event
      * @param $object
+     * @param EventType $type
      *
      * @return bool
      */
-    public static function generateEvents($event, $object)
+    public static function generateEvents($event, $object, $type)
     {
         $users = [];
         if ($event->to == 0) {
@@ -41,7 +43,7 @@ class BasicEvent extends Component
         }
 
         if (count($users) > 0) {
-            $templates = array_merge(self::getTemplateVarables(), $object->getTemplateVarables());
+            $templates = array_merge(self::getTemplateVariables(), $object->getTemplateVariables());
 
             /** @var User $user */
             foreach ($users as $user) {
@@ -50,7 +52,7 @@ class BasicEvent extends Component
                 $userEvent = new UserEvent();
                 $userEvent->user_id = $user->id;
                 $userEvent->event_id = $event->id;
-                $userEvent->type_id = 1;
+                $userEvent->type_id = $type->id;
                 $userEvent->is_read = 0;
                 $userEvent->subject = strtr($event->subject, $templates);
                 $userEvent->body = strtr($event->body, $templates);
@@ -68,10 +70,10 @@ class BasicEvent extends Component
      *
      * @return array
      */
-    public static function getTemplateVarables()
+    public static function getTemplateVariables()
     {
         return [
-            '{username}' => '',
+            '{username}' => \Yii::$app->user->isGuest ? 'Гость' : \Yii::$app->user->identity->username,
             '{sitename}' => 'Test site',
         ];
     }

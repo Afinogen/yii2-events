@@ -9,9 +9,13 @@
 namespace app\controllers;
 
 
-use app\models\UserEventSearch;
+use app\components\BrowserEvent;
+use app\models\EventType;
+use app\models\UserEvent;
+use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\HttpException;
 
 /**
  * Class ViewEvents
@@ -34,15 +38,46 @@ class ViewEventsController extends Controller
             ],
         ];
     }
-    
+
+    /**
+     * Вывод браузерных событий для пользователя
+     * Не прочтеные выволятся первыми
+     * @return string
+     */
     public function actionIndex()
     {
-        $searchModel = new UserEventSearch();
-        $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
+        $browserType = EventType::find()->where(['name' => BrowserEvent::EVENT_TYPE_BROWSER])->one();
+        $dataProvider = new ActiveDataProvider([
+            'query' => UserEvent::find()->where(['user_id' => \Yii::$app->user->id, 'type_id' => $browserType->id]),
+            'sort' => [
+                'defaultOrder' => ['is_read' => SORT_ASC],
+            ],
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    /**
+     * Установка флага прочтения на событие
+     * @param int $id
+     * @return \yii\web\Response
+     * @throws HttpException
+     */
+    public function actionRead($id)
+    {
+        /** @var UserEvent $event */
+        $event = UserEvent::find()->where(['id' => $id, 'user_id' => \Yii::$app->user->id])->one();
+        if ($event) {
+            $event->is_read = 1;
+            $event->save();
+            return $this->redirect(['index']);
+        }
+
+        throw new HttpException(403, 'Ошибка доступа');
     }
 }

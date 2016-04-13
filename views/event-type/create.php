@@ -7,6 +7,7 @@ use yii\helpers\Html;
 /* @var $model app\models\EventType */
 
 $this->title = 'Create Event Type';
+$this->params['breadcrumbs'][] = ['label' => 'Admin', 'url' => ['admin/index']];
 $this->params['breadcrumbs'][] = ['label' => 'Event Types', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

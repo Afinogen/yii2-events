@@ -46,14 +46,12 @@ $config = [
             'ruleTable' => 'rbac_auth_rule',
             'defaultRoles' => ['admin', 'user'],
         ],
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
-        */
     ],
     'params' => $params,
 ];

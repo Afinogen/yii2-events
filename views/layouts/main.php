@@ -52,6 +52,11 @@ AppAsset::register($this);
                     'url' => ['/site/contact']
                 ],
                 [
+                    'label' => 'Мои уведомления',
+                    'url' => ['view-events/index'],
+                    'visible' => !Yii::$app->user->isGuest
+                ],
+                [
                     'label' => 'АДминка',
                     'url' => ['/admin/index'],
                     'visible' => Yii::$app->user->can('admin')
