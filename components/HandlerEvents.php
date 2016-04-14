@@ -24,17 +24,20 @@ class HandlerEvents extends \yii\base\Event
      */
     public static function newEvent($event)
     {
-        /** @var Event $eventDb */
-        $eventDb = Event::find()->where(['code' => $event->name])->one();
-        if ($eventDb) {
-            $msgTypes = $eventDb->getEventHasTypes()->all();
+        /** @var Event[] $eventsDb */
+        $eventsDb = Event::find()->where(['code' => $event->name])->all();
+        
+        if (count($eventsDb) > 0) {
+            foreach ($eventsDb as $eventDb) {
+                $msgTypes = $eventDb->getEventHasTypes()->all();
 
-            /** @var EventHasType $msgType */
-            foreach ($msgTypes as $msgType) {
-                if ($msgType->type->name == EmailEvent::EVENT_TYPE_EMAIL) {
-                    EmailEvent::generateEvents($eventDb, $event->sender, $msgType->type);
-                } elseif ($msgType->type->name == BrowserEvent::EVENT_TYPE_BROWSER) {
-                    BrowserEvent::generateEvents($eventDb, $event->sender, $msgType->type);
+                /** @var EventHasType $msgType */
+                foreach ($msgTypes as $msgType) {
+                    if ($msgType->type->name == EmailEvent::EVENT_TYPE_EMAIL) {
+                        EmailEvent::generateEvents($eventDb, $event->sender, $msgType->type);
+                    } elseif ($msgType->type->name == BrowserEvent::EVENT_TYPE_BROWSER) {
+                        BrowserEvent::generateEvents($eventDb, $event->sender, $msgType->type);
+                    }
                 }
             }
         }

@@ -39,7 +39,7 @@ class BasicEvent extends Component
         } elseif ($event->to == -1 && !\Yii::$app->user->isGuest) {
             $users[] = User::find()->where(['id' => \Yii::$app->user->id])->one();
         } elseif ($event->to > 0) {
-            $users = User::find()->where(['id' => $event->to])->one();
+            $users[] = User::find()->where(['id' => $event->to])->one();
         }
 
         if (count($users) > 0) {
